@@ -1,42 +1,52 @@
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Scanner;
 
 public class MainKasir {
     public static void main(String[] args) {
-        Scanner input = new Scanner(System.in);
-        Barang[] daftarBarang = new Barang[]{new Barang("B001", "Sabun Mandi", 5000), new Barang("B002", "Shampoo", 12000), new Barang("B003", "Pasta Gigi", 8000), new Barang("B004", "Sikat Gigi", 6000), new Barang("B005", "Minyak Goreng 1L", 15000), new Barang("B006", "Gula 1Kg", 14000), new Barang("B007", "Kopi Instan", 3000), new Barang("B008", "Teh Celup", 4000), new Barang("B009", "Air Mineral", 3000), new Barang("B010", "Mie Instan", 2500)};
-        System.out.print("Masukkan kode barang : ");
-        String kodeInput = input.nextLine();
-        Barang barangDipilih = null;
+        Map<String, Barang> daftarBarang = new HashMap();
+        daftarBarang.put("A01", new Barang("A01", "Beras 5kg", 65000));
+        daftarBarang.put("A02", new Barang("A02", "Gula 1kg", 14000));
+        daftarBarang.put("A03", new Barang("A03", "Minyak 1L", 16000));
+        daftarBarang.put("A04", new Barang("A04", "Mie Instan", 3500));
+        daftarBarang.put("A05", new Barang("A05", "Telur 1kg", 28000));
+        daftarBarang.put("A06", new Barang("A06", "Susu Bubuk", 45000));
+        daftarBarang.put("A07", new Barang("A07", "Teh Celup", 12000));
+        daftarBarang.put("A08", new Barang("A08", "Kopi Sachet", 2000));
+        daftarBarang.put("A09", new Barang("A09", "Air Mineral 1.5L", 6000));
+        daftarBarang.put("A10", new Barang("A10", "Roti Tawar", 18000));
+        Scanner sc = new Scanner(System.in);
+        int total = 0;
 
-        for(Barang b : daftarBarang) {
-            if (b.getKode().equalsIgnoreCase(kodeInput)) {
-                barangDipilih = b;
-                break;
+        while(true) {
+            System.out.print("Masukkan kode barang (atau 0 untuk selesai): ");
+            String kode = sc.nextLine();
+            if (kode.equals("0")) {
+                System.out.println("\nTotal pembayaran: Rp " + total);
+                System.out.println("\nPilih metode pembayaran:");
+                System.out.println("1. Tunai");
+                System.out.println("2. Non Tunai");
+                System.out.print("Pilih (1/2): ");
+                int metode = sc.nextInt();
+                Pembayaran pembayaran;
+                if (metode == 1) {
+                    pembayaran = new PembayaranTunai(total);
+                } else {
+                    pembayaran = new PembayaranNonTunai(total);
+                }
+
+                pembayaran.prosesPembayaran();
+                return;
             }
-        }
 
-        if (barangDipilih == null) {
-            System.out.println("Kode barang tidak ditemukan!");
-        } else {
-            barangDipilih.tampilkanInfo();
-            System.out.println("\nPilih Metode Pembayaran:");
-            System.out.println("1. Tunai");
-            System.out.println("2. Non-Tunai");
-            System.out.print("Pilih (1/2): ");
-            int pilih = input.nextInt();
-            input.nextLine();
-            Pembayaran p;
-            if (pilih == 1) {
-                p = new PembayaranTunai();
+            if (daftarBarang.containsKey(kode)) {
+                Barang b = (Barang)daftarBarang.get(kode);
+                System.out.println("Nama Barang : " + b.getNama());
+                System.out.println("Harga       : Rp " + b.getHarga());
+                total += b.getHarga();
             } else {
-                PembayaranNonTunai non = new PembayaranNonTunai();
-                System.out.print("Masukkan metode non-tunai (E-Wallet / QRIS / Transfer Bank): ");
-                non.metode = input.nextLine();
-                p = non;
+                System.out.println("Kode barang tidak ditemukan!");
             }
-
-            p.prosesPembayaran();
-            input.close();
         }
     }
 }
