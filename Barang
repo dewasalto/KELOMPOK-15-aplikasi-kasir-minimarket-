@@ -1,0 +1,15 @@
+public class Barang{
+    private String kode;
+    private string nama;
+    private int harga;
+
+    public Barang(String kode, String nama, int harga){
+        this.kode=kode;
+        this.nama=nama;
+        this.harga=harga;
+    }
+
+    public String getKode(){return this.kode;}
+    public String getNama(){return this.nama;}
+    public int getHarga(){return this.harga;}
+}
