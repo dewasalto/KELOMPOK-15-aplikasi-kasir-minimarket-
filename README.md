@@ -1,1 +1,1 @@
-Repository ini berisi source code Aplikasi Kasir Minimarket yang dikembangkan oleh Kelompok 15 sebagai proyek tugas. Aplikasi ini dirancang untuk membantu proses transaksi penjualan pada minimarket secara sederhana, cepat, dan terstruktur dengan memanfaatkan bahasa pemrograman Java serta database lokal.
+Repository ini berisi source code Aplikasi Kasir Minimarket yang dikembangkan oleh Kelompok 15 sebagai proyek tugas.
